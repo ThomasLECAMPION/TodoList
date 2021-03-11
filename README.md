@@ -1,5 +1,7 @@
 # todolist
 
+Projet d'Applications Mobiles L3 Informatique année 2020-2021
+
 ## Project setup
 ```
 npm install
