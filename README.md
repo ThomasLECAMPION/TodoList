@@ -6,7 +6,7 @@ Membres:
 ```
 LECAMPION Thomas 21806937
 MABIRE Louis 21806916
-BAUDOUIN Christofer 21809877
+BAUDOUIN Christopher 21809877
 SADIK Chaimaa 22012270
 ```
 
