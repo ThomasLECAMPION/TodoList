@@ -1,25 +1,26 @@
 <template>
     <div>
-        <p>j'ai compris</p>
-        <TodoList :time="time"></TodoList>
+        <Sidebar></Sidebar>
+        <TodoList></TodoList>
     </div>
 </template>
 
 <script>
-import TodoList from '@/components/TodoList.vue';
-export default {
-    name: 'Home',
-    components: {
-        TodoList
-    },
-    computed: {
-        time: function() {
-            return Date.now()
+    import TodoList from '@/components/TodoList.vue';
+    import Sidebar from '@/components/Sidebar.vue';
+
+    export default {
+        name: 'Home',
+        components: {
+            TodoList,
+            Sidebar,
+
         }
     }
-}
 </script>
 
 <style scoped>
-
+    div {
+        display: flex;
+    }
 </style>

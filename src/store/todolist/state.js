@@ -35,5 +35,6 @@ export default function () {
             }
         ],
         filter: 'all', //(all | remaining | done)
+        loadedListID: 1,
     }
 }
