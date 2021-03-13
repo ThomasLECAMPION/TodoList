@@ -12,7 +12,7 @@ SADIK Chaimaa 22012270
 
 ## Project setup
 ```
-npm install
+npm install axios vuex vue-router --save
 ```
 
 ### Compiles and hot-reloads for development
