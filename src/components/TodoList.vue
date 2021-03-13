@@ -16,7 +16,7 @@
         </div>
       </li>
     </ul>
-
+    
     <!-- Liste des filtres disponibles -->
     <legend>Filtres: </legend>
     <button v-on:click="setFilter('all')" v-bind:class="{ active: getFilter=='all' }">Toutes</button>
