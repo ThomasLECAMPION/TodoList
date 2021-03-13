@@ -1,16 +1,13 @@
 <template>
-    <div v-if="!getToken">
+    <div>
         <input placeholder="E-mail" v-model="email" type="email">
         <input placeholder="Mot de passe" v-model="password" type="password">
-        <button v-on:click="login([email,password])">Login</button>
-    </div>
-    <div v-else>
-        <p>Bienvenu !</p>
+        <button v-on:click="login([email,password])">Se connecter</button>
     </div>
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
+  import { mapActions } from 'vuex';
 
   export default {
     name: 'Login',
@@ -23,11 +20,5 @@
     methods: {
       ...mapActions('account', ['login']),
     },
-    computed: {
-      ...mapGetters('account', ['getToken']),
-    }
   }
 </script>
-
-<style scoped>
-</style>

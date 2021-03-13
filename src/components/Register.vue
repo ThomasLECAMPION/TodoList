@@ -3,12 +3,12 @@
         <input placeholder="Nom" v-model="username" type="text">
         <input placeholder="E-mail" v-model="email" type="email">
         <input placeholder="Mot de passe" v-model="password" type="password">
-        <button v-on:click="register([username,email,password])">Register</button>
+        <button v-on:click="register([username,email,password])">S'enregistrer</button>
     </div>
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex';
+  import { mapActions } from 'vuex';
 
   export default {
     name: 'Register',
@@ -22,11 +22,5 @@
     methods: {
       ...mapActions('account', ['register']),
     },
-    computed: {
-      ...mapGetters('account', ['getToken']),
-    }
   }
 </script>
-
-<style scoped>
-</style>

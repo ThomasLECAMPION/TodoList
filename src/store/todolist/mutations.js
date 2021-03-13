@@ -1,43 +1,39 @@
-/* Fonctions TodoList.vue */
-export function setFilter(state, filter) {
-    state.filter = filter;
-}
-
-export function destroyTodo(state, todo) {
-    let todos = state.todoList.find(list => list.id === state.loadedListID).todos;
-    todos.splice(todos.indexOf(todo),1);
-}
-
-export function createTodo(state) {
-    let todos = state.todoList.find(list => list.id === state.loadedListID).todos;
-    if(!todos.length) { //S'il n'y a pas de todo dans la liste
-        todos.push({id: 1, name: 'Nouvelle tâche', completed: false});
-    }
-    else {
-        todos.push({id: todos[todos.length-1].id+1, name: 'Nouvelle tâche', completed: false});
+//Fonctions sur les listes
+export function setTodoList(state, todoList) { //Utile pour charger todoList via le local ou l'API
+    state.todoList = todoList;
+    updateLocalStorage(state);
+    if(state.todoList[0]) { //On ouvre automatiquement la premiere liste -> QOL++
+        state.loadedListID = state.todoList[0].id;
     }
 }
 
-/* Fonctions Sidebar.vue */
-export function createList(state) {
-    if(!state.todoList.length) { //S'il n'y a pas de liste
-        state.todoList.push({id: 1, name: 'Nouvelle liste', todos: []});
-    }
-    else {
-        state.todoList.push({id: state.todoList[state.todoList.length-1].id+1, name: 'Nouvelle liste', todos: []});
-    }
+export function updateLocalStorage(state) {
+    localStorage.todoList = JSON.stringify(state.todoList);
 }
 
-export function destroyList(state, list) {
-    if(state.loadedListID != list.id) { //La liste est detruite si elle n'est pas chargee
-        state.todoList.splice(state.todoList.indexOf(list),1);
-    }
-    else if(state.todoList.length == 1) { //Si c'est la seule liste
-        state.todoList.splice(state.todoList.indexOf(list),1);
-        state.loadedListID = 1;
-    }
+export function createList(state, [id, name]) {
+    state.todoList.push({id: id, name: name, todos: []});
+    state.loadedListID = id;
+    updateLocalStorage(state);
 }
 
 export function goToList(state, list) {
     state.loadedListID = list.id;
+}
+
+//Fonctions sur les taches d'une liste
+export function createTodo(state, [list_id, todo_id, name, completed]) {
+    let todos = state.todoList.find(list => list.id === list_id).todos;
+    todos.push({id: todo_id, name: name, completed: Boolean(completed)});
+    updateLocalStorage(state);
+}
+
+export function completeTodo(state, todoAPI) {
+    let todo = state.todoList.find(list => list.id === state.loadedListID).todos.find(todo => todo.id === todoAPI.id);
+    todo.completed = Boolean (todoAPI.completed);
+    updateLocalStorage(state);
+}
+
+export function setFilter(state, filter) {
+    state.filter = filter;
 }

@@ -17,3 +17,11 @@ export async function register ({ commit }, [name, email, password]) {
         console.log('erreur :', error);
     }
 }
+
+export function disconnect ({ commit }) {
+    commit('setToken', '');
+}
+
+export function setToken ({ commit }, token) {
+    commit('setToken', token);
+}

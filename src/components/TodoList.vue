@@ -1,26 +1,27 @@
 <template>
-  <div v-if="getTodoLists.length" class="liste">
+  <div v-if="getTodoList" class="liste">
 
-    <h1>{{ getTodoList.name }}</h1>
+    <h1>{{ getTodoList.name }} ({{ getTodoList.todos.filter(todo => !todo.completed).length }} tâches à faire)</h1>
 
     <ul> <!-- Liste des taches -->
       <li>
-        <button v-on:click="createTodo">Ajouter une tâche</button>
+        <input type="text" v-model="todo_name" placeholder="Nouvelle tâche">
+        <button v-on:click="createTodo([todo_name, getLoadedListID, getToken]); todo_name='';">Ajouter une tâche</button>
       </li>
       <li v-for="todo in getTodoList.todos" :key="todo.id">
         <div v-if="filtered(todo.completed)"> <!-- affichage des taches selon le filtrage -->
-          <input type='checkbox' v-model="todo.completed" v-bind:key="todo.id"> 
-          <input type="text" v-model="todo.name" v-bind:key="todo.id">
-          <button v-on:click="destroyTodo(todo)" v-bind:key="todo.id">x</button>
+          <input v-if="todo.completed" checked type='checkbox' v-on:click="completeTodo([todo.id, todo.completed, getTodoList.id, getToken])">
+          <input v-else type='checkbox' v-on:click="completeTodo([todo.id, todo.completed, getTodoList.id, getToken])"> 
+          <input type="text" v-model="todo.name" v-on:blur="modifyTodo([todo.id, todo.name, todo.completed, getLoadedListID, getToken])">
         </div>
       </li>
     </ul>
-
-    <p>{{ getTodoList.todos.filter(todo => !todo.completed).length }} tâches restantes</p> 
+    
     <!-- Liste des filtres disponibles -->
-    <button v-on:click="setFilter('all')">Toutes</button>
-    <button v-on:click="setFilter('remaining')">A faire</button>
-    <button v-on:click="setFilter('done')">Faites</button>
+    <legend>Filtres: </legend>
+    <button v-on:click="setFilter('all')" v-bind:class="{ active: getFilter=='all' }">Toutes</button>
+    <button v-on:click="setFilter('remaining')" v-bind:class="{ active: getFilter=='remaining' }">A faire</button>
+    <button v-on:click="setFilter('done')" v-bind:class="{ active: getFilter=='done' }">Faites</button>
 
   </div>
 </template>
@@ -30,23 +31,26 @@
 
   export default {
     name: 'TodoList',
+    data: function() {
+      return {
+        todo_name: '',
+      }
+    },
     methods: {
-      ...mapActions('todolist', ['setFilter', 'destroyTodo', 'createTodo']),
+      ...mapActions('todolist', ['setFilter', 'createTodo', 'completeTodo', 'modifyTodo']),
       filtered(isCompleted) {
-        return (this.getFilter=='all' || (this.getFilter=='remaining' && isCompleted==false) || (this.getFilter=='done' && isCompleted==true));
+        return (this.getFilter=='all' || (this.getFilter=='remaining' && !isCompleted) || (this.getFilter=='done' && isCompleted));
       },
     },
     computed: {
-      ...mapGetters('todolist', ['getTodoList', 'getFilter', 'getLoadedListID', 'getTodoLists']),
+      ...mapGetters('todolist', ['getTodoList', 'getFilter', 'getLoadedListID']),
+      ...mapGetters('account', ['getToken']),
     }
   }
 </script>
 
 <style scoped>
   .liste {
-    background-color: rgb(28, 179, 166);
-  }
-  ul {
-    list-style-type: none;
+    background: rgb(28, 179, 166);
   }
 </style>

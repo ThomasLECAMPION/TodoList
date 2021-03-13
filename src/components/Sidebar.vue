@@ -1,14 +1,14 @@
 <template>
-    <ul class='liste'> <!-- Liste des listes -->
-      <li>
-        <button v-on:click="createList">Ajouter une liste</button>
-      </li>
-      <li v-for="list in getTodoLists" :key="list.id">
-        <div>
-          <input type="text" v-model="list.name" v-on:click="goToList(list)" v-bind:key="list.id">
-          <button v-on:click="destroyList(list)" v-bind:key="list.id">x</button>
-        </div>
-      </li>
+  <ul class='liste'> <!-- Liste des listes -->
+    <li>
+      <input type="text" v-model="list_name" placeholder="Nouvelle liste">
+      <button v-on:click="createList([list_name, getToken]); list_name='';">Ajouter une liste</button>
+    </li>
+    <li v-for="list in getTodoLists" :key="list.id">
+      <div>
+        <label v-on:click="goToList(list)" v-bind:key="list.id" v-bind:class="{active: list.id == getLoadedListID}"> {{ list.name }} ({{ list.todos.filter(todo => !todo.completed).length }})</label>
+      </div>
+    </li>
     </ul>
 </template>
 
@@ -17,11 +17,17 @@
 
     export default {
         name: 'Sidebar',
+        data: function() {
+          return {
+            list_name: '',
+          }
+        },
         methods: {
-            ...mapActions('todolist', ['createList', 'goToList', 'destroyList']),
+            ...mapActions('todolist', ['createList', 'goToList']),
         },
         computed: {
-            ...mapGetters('todolist', ['getTodoLists']),
-        }
+            ...mapGetters('todolist', ['getTodoLists', 'getLoadedListID']),
+            ...mapGetters('account', ['getToken']),
+        },
     }
 </script>
