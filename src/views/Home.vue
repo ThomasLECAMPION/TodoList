@@ -1,8 +1,7 @@
 <template>
     <div v-if="getToken">
         <h1>TodoLists ({{ tachesRestantes }})</h1>
-        <p v-if="!getTodoLists.length">Chargement des listes...</p>
-        <div v-else class='TodoList'>
+        <div class='TodoList'>
             <Sidebar></Sidebar>
             <TodoList></TodoList>
         </div>
@@ -25,7 +24,7 @@
         mounted() {
             if(this.getToken && !this.getTodoLists.length) {
                 this.setTodoListAPI(this.getToken);
-            }
+            } 
         },
         methods: {
             ...mapActions('todolist', ['setTodoListAPI']),
