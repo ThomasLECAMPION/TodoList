@@ -10,6 +10,7 @@
   import { mapActions } from 'vuex';
 
   export default {
+    //Décharge le localStorage dans le store quand l'application est montée
     mounted() {
       if(localStorage.token) {this.setToken(localStorage.token)}
       if(JSON.parse(localStorage.todoList)) {this.setTodoList(JSON.parse(localStorage.todoList))}

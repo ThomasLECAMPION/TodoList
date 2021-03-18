@@ -27,11 +27,20 @@ export function goToList ({ commit }, list) {
     commit('goToList', list);
 }
 
-//Fonctions sur les taches d'une liste
-export async function createTodo ({ commit }, [name, list_id, token]) {
+export async function destroyList ({ commit }, [todolist, token]) {
     try {
-        const request = await axios.post('http://138.68.74.39/api/todo', null, {params: {name: name, completed: 0, todolist_id: list_id}, headers: {authorization: 'Bearer ' + token}});
-        commit('createTodo', [list_id, request.data.id, request.data.name, parseInt(request.data.completed)]);
+        await axios.delete('http://138.68.74.39/api/todolist/'+todolist.id, {headers: {authorization: 'Bearer ' + token}});
+        commit('destroyList', todolist);
+    } catch(error) {
+        console.log('erreur :', error);
+    }
+}
+
+//Fonctions sur les taches d'une liste
+export async function createTodo ({ commit }, [name, todolist_id, token]) {
+    try {
+        const request = await axios.post('http://138.68.74.39/api/todo', null, {params: {name: name, completed: 0, todolist_id: todolist_id}, headers: {authorization: 'Bearer ' + token}});
+        commit('createTodo', [request.data.id, request.data.name, parseInt(request.data.completed)]);
     } catch(error) {
         console.log('erreur :', error);
     }
@@ -50,6 +59,15 @@ export async function modifyTodo ({ commit }, [todo_id, name, completed, todolis
     try {
         await axios.patch('http://138.68.74.39/api/todo/'+todo_id, null, {params: {name: name, completed: completed, todolist_id: todolist_id}, headers: {authorization: 'Bearer ' + token}});
         commit('updateLocalStorage');
+    } catch(error) {
+        console.log('erreur :', error);
+    }
+}
+
+export async function destroyTodo ({ commit }, [todo, token]) {
+    try {
+        await axios.delete('http://138.68.74.39/api/todo/'+todo.id, {headers: {authorization: 'Bearer ' + token}});
+        commit('destroyTodo', todo);
     } catch(error) {
         console.log('erreur :', error);
     }

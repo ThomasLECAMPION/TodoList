@@ -13,6 +13,7 @@
           <input v-if="todo.completed" checked type='checkbox' v-on:click="completeTodo([todo.id, todo.completed, getTodoList.id, getToken])">
           <input v-else type='checkbox' v-on:click="completeTodo([todo.id, todo.completed, getTodoList.id, getToken])"> 
           <input type="text" v-model="todo.name" v-on:blur="modifyTodo([todo.id, todo.name, todo.completed, getLoadedListID, getToken])">
+          <button v-on:click="destroyTodo([todo, getToken])">x</button>
         </div>
       </li>
     </ul>
@@ -37,7 +38,8 @@
       }
     },
     methods: {
-      ...mapActions('todolist', ['setFilter', 'createTodo', 'completeTodo', 'modifyTodo']),
+      ...mapActions('todolist', ['setFilter', 'createTodo', 'completeTodo', 'modifyTodo', 'destroyTodo']),
+      //Doit-on afficher la tâche? (par rapport au filtre sélectionné)
       filtered(isCompleted) {
         return (this.getFilter=='all' || (this.getFilter=='remaining' && !isCompleted) || (this.getFilter=='done' && isCompleted));
       },

@@ -21,9 +21,14 @@ export function goToList(state, list) {
     state.loadedListID = list.id;
 }
 
+export function destroyList(state, todolist) {
+    state.todoList.splice(state.todoList.indexOf(todolist),1);
+    updateLocalStorage(state);
+}
+
 //Fonctions sur les taches d'une liste
-export function createTodo(state, [list_id, todo_id, name, completed]) {
-    let todos = state.todoList.find(list => list.id === list_id).todos;
+export function createTodo(state, [todo_id, name, completed]) {
+    let todos = state.todoList.find(list => list.id === state.loadedListID).todos;
     todos.push({id: todo_id, name: name, completed: Boolean(completed)});
     updateLocalStorage(state);
 }
@@ -36,4 +41,10 @@ export function completeTodo(state, todoAPI) {
 
 export function setFilter(state, filter) {
     state.filter = filter;
+}
+
+export function destroyTodo(state, todo) {
+    let todos = state.todoList.find(list => list.id === state.loadedListID).todos;
+    todos.splice(todos.indexOf(todo),1);
+    updateLocalStorage(state);
 }
