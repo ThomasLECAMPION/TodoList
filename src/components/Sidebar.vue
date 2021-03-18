@@ -5,9 +5,8 @@
       <button v-on:click="createList([list_name, getToken]); list_name='';">Ajouter une liste</button>
     </li>
     <li v-for="list in getTodoLists" :key="list.id">
-      <div>
-        <label v-on:click="goToList(list)" v-bind:key="list.id" v-bind:class="{active: list.id == getLoadedListID}"> {{ list.name }} ({{ list.todos.filter(todo => !todo.completed).length }})</label>
-      </div>
+      <button v-on:click="destroyList([list, getToken])">x</button>
+      <label v-on:click="goToList(list)" v-bind:class="{active: list.id == getLoadedListID}"> {{ list.name }} ({{ list.todos.filter(todo => !todo.completed).length }})</label>
     </li>
     </ul>
 </template>
@@ -23,7 +22,7 @@
           }
         },
         methods: {
-            ...mapActions('todolist', ['createList', 'goToList']),
+            ...mapActions('todolist', ['createList', 'goToList', 'destroyList']),
         },
         computed: {
             ...mapGetters('todolist', ['getTodoLists', 'getLoadedListID']),

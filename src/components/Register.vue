@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div> <!-- Formulaire d'inscription -->
         <input placeholder="Nom" v-model="username" type="text">
         <input placeholder="E-mail" v-model="email" type="email">
         <input placeholder="Mot de passe" v-model="password" type="password">
