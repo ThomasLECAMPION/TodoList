@@ -1,10 +1,12 @@
 <template>
-    <!-- Si nous avons un token d'authentification, on considère être connecté -->
     <div v-if="getToken">
-      <p>Connexion réussie !</p>
-      <button v-on:click="disconnect(); setTodoList([]);">Déconnexion</button> <!-- Réinitialise le token et le contenu des TodoLists -->
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Connexion réussie ! </h1>
+                <button v-on:click="disconnect(); setTodoList([]);" class="btn btn-primary">Déconnexion</button>
+            </div>
+        </div>
     </div>
-    <!-- Sinon, on charge les composants de formulaires de connexion -->
     <div v-else>
         <Login></Login>
         <Register></Register>
