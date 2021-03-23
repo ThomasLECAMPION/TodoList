@@ -1,22 +1,8 @@
 <template>
-    <div class="container">
-    
-        <div class="card">
-          <div class="card-header bg-dark text-white">
-            Se connecter
-          </div>
-          <div class="card-body">
-            <div class="form-group">
-              <label for="exampleInputEmail1">Email address</label>
-              <input placeholder="E-mail" v-model="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            </div>
-            <div class="form-group">
-                  <label for="exampleInputEmail1">Mot de passe</label>
-                  <input placeholder="Mot de passe" v-model="password" type="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            </div>
-            <button v-on:click="login([email,password])" class="btn btn-primary">Se connecter</button>
-          </div>
-        </div>
+    <div>
+        <input placeholder="E-mail" v-model="email" type="email">
+        <input placeholder="Mot de passe" v-model="password" type="password">
+        <button v-on:click="login([email,password])">Se connecter</button>
     </div>
 </template>
 
