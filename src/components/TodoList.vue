@@ -9,14 +9,15 @@
         <ul class="list-group">
            <!-- Liste des taches -->
            <li  class="list-group-item">
-            <input type="text" v-model="todo_name" placeholder="Nouvelle tâche">
-            <button v-on:click="createTodo([todo_name, getLoadedListID, getToken]); todo_name='';">Ajouter une tâche</button>
+            <input type="text" v-model="todo_name" placeholder="Nouvelle tâche" class="form-control">
+            <button class="btn btn-success ml-2 float-right mt-2" v-on:click="createTodo([todo_name, getLoadedListID, getToken]); todo_name='';">Ajouter une tâche</button>
           </li>
           <li  class="list-group-item" v-for="todo in getTodoList.todos" :key="todo.id">
             <div v-if="filtered(todo.completed)"> <!-- affichage des taches selon le filtrage -->
               <input v-if="todo.completed" checked type='checkbox' v-on:click="completeTodo([todo.id, todo.completed, getTodoList.id, getToken])">
               <input v-else type='checkbox' v-on:click="completeTodo([todo.id, todo.completed, getTodoList.id, getToken])"> 
-              <input type="text" v-model="todo.name" v-on:blur="modifyTodo([todo.id, todo.name, todo.completed, getLoadedListID, getToken])">
+              <input type="text" v-model="todo.name" v-on:blur="modifyTodo([todo.id, todo.name, todo.completed, getLoadedListID, getToken])"  class="ml-3">
+              <button v-on:click="destroyTodo([todo, getToken])" class="btn btn-danger ml-2"><img src="../assets/delete.png" alt="delete" style="width: 15px; height: 15px;"></button>
             </div>
           </li>
         </ul>
@@ -30,7 +31,6 @@
         <button v-on:click="setFilter('done')" v-bind:class="{ active: getFilter=='done' }">Faites</button>
       </div>
   </div>
-  
 </template>
 
 <script>

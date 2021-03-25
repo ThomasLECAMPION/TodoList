@@ -1,16 +1,15 @@
 <template>
-    <div v-if="getToken" class="container mt-5">
-        <h1>TodoLists ({{ tachesRestantes }})</h1>
+    <!-- Si l'utilisateur est connecté, on charge les composants des todolists -->
+    <div v-if="getToken">
+        <h1>TodoLists ({{ remainingTasks }})</h1>
+        <hr>
         <div class='TodoList'>
             <Sidebar></Sidebar>
             <TodoList></TodoList>
         </div>
     </div>
-    <div v-else class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-4">Veuillez vous connecter pour accéder à vos listes</h1>
-        </div>
-    </div>
+    <!-- Sinon, on impose de se connecter -->
+    <p v-else>Veuillez vous connecter pour accéder à vos listes.</p>
 </template>
 
 <script>

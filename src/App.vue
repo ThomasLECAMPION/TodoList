@@ -1,4 +1,5 @@
-<template> 
+<template>
+  <div id='nav'>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <a class="navbar-brand" href="#">TODO</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -6,14 +7,19 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-              <router-link to='/' class="nav-item nav-link ">Home</router-link>
-              <router-link to='/Account'  class="nav-item nav-link ">Login</router-link>
+              <li class="nav-item">
+                <router-link to='/' class="nav-link ">Home</router-link>
+                </li>
+              <li class="nav-item">
+                <router-link to='/Account'  class="nav-link ">Login</router-link>
+              </li>
+              
             </div>
           </div>
       </nav>
-   <router-view />
+  </div>
+  <router-view />
 </template>
-
 
 <script>
   import { mapActions } from 'vuex';

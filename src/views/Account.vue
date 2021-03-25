@@ -1,4 +1,5 @@
 <template>
+    <!-- Si nous avons un token d'authentification, on considère être connecté -->
     <div v-if="getToken">
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
@@ -7,6 +8,7 @@
             </div>
         </div>
     </div>
+    <!-- Sinon, on charge les composants de formulaires de connexion -->
     <div v-else>
         <Login></Login>
         <Register></Register>

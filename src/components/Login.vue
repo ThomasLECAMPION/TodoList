@@ -1,4 +1,5 @@
 <template>
+    
     <div class="container">
     
         <div class="card">
@@ -7,12 +8,12 @@
           </div>
           <div class="card-body">
             <div class="form-group">
-              <label for="exampleInputEmail1">Email address</label>
-              <input placeholder="E-mail" v-model="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <label for="emailLogin">Email address</label>
+              <input placeholder="E-mail" v-model="email" type="email" class="form-control" id="emailLogin" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
-                  <label for="exampleInputEmail1">Mot de passe</label>
-                  <input placeholder="Mot de passe" v-model="password" type="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  <label for="pswdlogin">Mot de passe</label>
+                  <input placeholder="Mot de passe" v-model="password" type="password" class="form-control" id="pswdlogin" aria-describedby="emailHelp">
             </div>
             <button v-on:click="login([email,password])" class="btn btn-primary">Se connecter</button>
           </div>
